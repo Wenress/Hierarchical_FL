@@ -1,0 +1,6 @@
+# config.yaml
+training:
+  batch_size: 32          # dimensione mini-batch
+server:
+  ip: "fl-server"          # IP del server Flower
+  port: 8080              # porta TCP

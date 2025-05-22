@@ -1,0 +1,14 @@
+# config.yaml
+fed_avg:
+  min_fit_clients: 1
+  min_available_clients: 1
+  min_evaluate_clients: 1
+  fraction_fit:   1.0
+  fraction_evaluate: 1.0
+
+config:
+  num_rounds: 3
+
+network:
+  port: 8080
+
