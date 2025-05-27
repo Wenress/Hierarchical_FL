@@ -5,9 +5,6 @@ from configs.utils import load_config
 import argparse
 import threading
 import sys
-import signal
-import atexit
-
 
 edge_servers = {}
 current_edge_server = None
@@ -37,17 +34,7 @@ async def lifespan(app: FastAPI):
         #script_path = os.path.join(root_path, "utils", "kill_edge_server.sh")
         cleanup_edge_servers(edge_servers.keys(), cfg["orchestrator"]["kill_edge_path"])
 
-def _signal_handler(signal, frame):
-    #script_path = os.path.join(root_path, "utils", "kill_edge_server.sh")
-    cleanup_edge_servers(edge_servers.keys(), cfg["orchestrator"]["kill_edge_path"])
-    edge_servers.clear()
-    sys.exit(0)
-
 app = FastAPI(lifespan=lifespan)
-#signal.signal(signal.SIGINT, _signal_handler)
-#signal.signal(signal.SIGTERM, _signal_handler)
-#atexit.register(cleanup_edge_servers, edge_servers.keys(), os.path.join(root_path, "utils", "kill_edge_server.sh"))
-#atexit.register(cleanup_edge_servers, edge_servers.keys(), cfg["orchestrator"]["kill_edge_path"])
 requests_lock = threading.Lock()
 current_edge_server = None
 
