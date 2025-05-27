@@ -1,5 +1,7 @@
 import threading
 from abc import ABC, abstractmethod
+import time
+import socket
 
 class CoordinatorBase(ABC):
     def __init__(self, config):
@@ -8,9 +10,16 @@ class CoordinatorBase(ABC):
         self.current_edge_server = None
         self.config = config
         self.requests_lock = threading.Lock()
+        self.clients = {}
 
     def allocate(self, client_id: str) -> dict:
         """Allocate a client to an edge server."""
+        if client_id in self.clients:
+            if not self.__wait_for_edge_server(self.clients[client_id]):
+                raise RuntimeError(f"Edge server {self.clients[client_id]} did not start in time")
+            return {"edge_server": self.clients[client_id], "message": "Client already allocated to an edge server"}
+        
+        edge_server_ip = None
         with self.requests_lock:
             if not self.edge_servers or len(self.edge_servers[self.current_edge_server]) >= self.max_clients_per_edge_server:
                 # Allocate a new edge server
@@ -20,12 +29,30 @@ class CoordinatorBase(ABC):
                 except Exception as e:
                     raise RuntimeError(f"Failed to add edge server {edge_server_ip}: {e}")
                 self.current_edge_server = edge_server_ip
-                self.edge_servers[edge_server_ip] = [client_id]
-                return {"edge_server": edge_server_ip, "message": "New edge server allocated."}
+                self.edge_servers[edge_server_ip] = []
             else:
                 # Allocate to the current edge server
-                self.edge_servers[self.current_edge_server].append(client_id)
-                return {"edge_server": self.current_edge_server, "message": "Client allocated to existing edge server."}
+                edge_server_ip = self.current_edge_server
+        
+        if not self.__wait_for_edge_server(edge_server_ip):
+            self._remove_edge(edge_server_ip)
+            raise RuntimeError(f"Edge server {edge_server_ip} did not start in time")
+        
+        self.edge_servers[edge_server_ip].append(client_id)
+        self.clients[client_id] = edge_server_ip
+        return {"edge_server": edge_server_ip, "message": "Client allocated to edge server"}
+    
+    def __wait_for_edge_server(self, edge_server_ip: str) -> bool:
+        """Wait for an edge server to be ready. Also checks if the edge server is reachable."""
+        deadline = time.time() + 20
+        while time.time() < deadline:
+            try:
+                with socket.create_connection((edge_server_ip, 8080), timeout=2):
+                    return True
+            except (socket.timeout, ConnectionRefusedError, OSError):
+                time.sleep(3)
+        return False
+
     
     def cleanup_edge_servers(self,):
         """Clean up edge servers by terminating their processes."""

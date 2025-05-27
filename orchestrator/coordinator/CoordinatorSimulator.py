@@ -9,6 +9,7 @@ class CoordinatorSimulator(CoordinatorBase):
 
     def _remove_edge(self, edge_server_ip: str):
             """Simulate removing an edge server."""
+            self.edge_servers.pop(edge_server_ip)
             run_shell_script(self.kill_script_path, edge_server_ip)
 
     def _add_edge(self, edge_server_ip: str):

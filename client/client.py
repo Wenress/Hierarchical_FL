@@ -55,7 +55,8 @@ response = requests.post(url)
 try:
     response.raise_for_status()  # Raise an error for bad responses
     edge_server = response.json().get("edge_server")
-    print(f"Allocated to edge server: {edge_server}")
+    message = response.json().get("message")
+    print(f"{message}: {edge_server}")
 except requests.exceptions.RequestException as e:
     print(f"Error allocating edge server: {e}")
     exit(1)
