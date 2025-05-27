@@ -15,9 +15,12 @@ class CoordinatorBase(ABC):
             if not self.edge_servers or len(self.edge_servers[self.current_edge_server]) >= self.max_clients_per_edge_server:
                 # Allocate a new edge server
                 edge_server_ip = f"edge{len(self.edge_servers) + 1}"
+                try:
+                    self._add_edge(edge_server_ip)
+                except Exception as e:
+                    raise RuntimeError(f"Failed to add edge server {edge_server_ip}: {e}")
                 self.current_edge_server = edge_server_ip
                 self.edge_servers[edge_server_ip] = [client_id]
-                self._add_edge(edge_server_ip)
                 return {"edge_server": edge_server_ip, "message": "New edge server allocated."}
             else:
                 # Allocate to the current edge server
