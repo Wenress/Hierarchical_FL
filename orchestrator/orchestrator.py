@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-@app.get("/allocate/{client_id}", response_model=dict)
+@app.post("/allocate/{client_id}", response_model=dict)
 async def allocate(client_id: str):
     """Allocate a client to an edge server."""
     return coordinator.allocate(client_id)

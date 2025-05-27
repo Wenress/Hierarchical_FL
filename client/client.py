@@ -48,12 +48,14 @@ fl_client = FlowerClient(model=model, trainloader=trainloader, testloader=testlo
 ip_address = f"{cfg['server']['ip']}:{cfg['server']['port']}"
 orchestrator_ip = f"{cfg['orchestrator']['ip']}:{cfg['orchestrator']['port']}"
 url = f"http://{orchestrator_ip}/allocate/prova1"
-response = requests.get(url)
-if response.status_code == 200:
+response = requests.post(url)
+try:
+    response.raise_for_status()  # Raise an error for bad responses
     edge_server = response.json().get("edge_server")
     print(f"Allocated to edge server: {edge_server}")
-else:
-    print(f"Failed to allocate edge server: {response.text}")
+except requests.exceptions.RequestException as e:
+    print(f"Error allocating edge server: {e}")
     exit(1)
+
 # fl.client.start_numpy_client(server_address=ip_address, client=fl_client)
 
