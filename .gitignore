@@ -553,4 +553,7 @@ MigrationBackup/
 
 # Data folders
 data/
+**/data/
+**/data/**
 # Data files
+*.gz

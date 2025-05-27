@@ -1,9 +1,14 @@
 # config.yaml
+
+federated_split:
+  train: 0.10
+  validation: 0.05
+
 training:
-  batch_size: 32          # dimensione mini-batch
+  batch_size: 64          # mini-batch size
+  seed: 42        # random seed for reproducibility
 server:
-  ip: "fl-server"          # IP del server Flower
-  port: 8080              # porta TCP
+  port: 8080              # TCP port for the edge servers
 orchestrator:
   ip: "orchestrator"
-  port: 8080            # porta TCP per l'orchestratore
+  port: 8080            # TCP port for the orchestrator 
