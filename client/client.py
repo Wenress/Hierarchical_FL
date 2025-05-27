@@ -34,6 +34,9 @@ parser = argparse.ArgumentParser(description="Federated Learning Client")
 parser.add_argument(
     "--config", type=str, default="configs/config.yaml", help="Path to the config file"
 )
+parser.add_argument(
+    "--client_id", type=str, default="unknown", help="Unique identifier for the client"
+)
 args = parser.parse_args()
 cfg = load_config(args.config)
 
@@ -47,7 +50,7 @@ model = ModelV2(input_shape=1, hidden_units = 10, output_shape=n_classes)
 fl_client = FlowerClient(model=model, trainloader=trainloader, testloader=testloader)
 ip_address = f"{cfg['server']['ip']}:{cfg['server']['port']}"
 orchestrator_ip = f"{cfg['orchestrator']['ip']}:{cfg['orchestrator']['port']}"
-url = f"http://{orchestrator_ip}/allocate/prova1"
+url = f"http://{orchestrator_ip}/allocate/{args.client_id}"
 response = requests.post(url)
 try:
     response.raise_for_status()  # Raise an error for bad responses

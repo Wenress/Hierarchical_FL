@@ -4,4 +4,4 @@ sudo docker run --rm \
   --cpus 4 \
   -v $(pwd)/client:/app \
   flower-image \
-  client.py --config ./configs/config.yaml
+  client.py --config ./configs/config.yaml --client_id $1
