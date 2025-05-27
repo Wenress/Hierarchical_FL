@@ -4,3 +4,6 @@ training:
 server:
   ip: "fl-server"          # IP del server Flower
   port: 8080              # porta TCP
+orchestrator:
+  ip: "orchestrator"
+  port: 8080            # porta TCP per l'orchestratore

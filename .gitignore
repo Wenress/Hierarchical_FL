@@ -539,3 +539,18 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/python,venv,vs
+
+# Local settings for Visual Studio Code
+.vscode/
+# Local settings for Visual Studio Code - extensions
+.vscode-test/
+# Local settings for Visual Studio Code - workspace storage
+.vscode-workspace/
+# Local settings for Visual Studio Code - server
+.vscode-server/
+# Local settings for Visual Studio Code - server bin
+.vscode-server-bin/
+
+# Data folders
+data/
+# Data files

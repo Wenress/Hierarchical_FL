@@ -1,0 +1,20 @@
+# config.yaml
+fed_avg:
+  min_fit_clients: 1
+  min_available_clients: 1
+  min_evaluate_clients: 1
+  fraction_fit:   1.0
+  fraction_evaluate: 1.0
+
+config:
+  num_rounds: 3
+
+orchestrator:
+  max_clients_per_edge_server: 3
+  run_edge_path: "./utils/run_edge_server.sh"
+  kill_edge_path: "./utils/kill_edge_server.sh"
+
+network:
+  ip: 0.0.0.0
+  port: 8080
+

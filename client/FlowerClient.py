@@ -4,8 +4,7 @@ from torch import optim
 from tqdm import tqdm
 from torchmetrics import Accuracy
 from torch.utils.data import DataLoader
-from utils import set_model_params, get_model_ndarrays
-from flwr.common import parameters_to_ndarrays
+from fl_utils.utils import set_model_params, get_model_ndarrays
 from model import ModelV2
 
 

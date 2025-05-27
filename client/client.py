@@ -7,9 +7,9 @@ from torch.utils.data import DataLoader
 from FlowerClient import FlowerClient
 
 import argparse
-from pathlib import Path
-
 from configs.utils import load_config
+
+import requests
 
 
 # Dataset 
@@ -46,4 +46,14 @@ model = ModelV2(input_shape=1, hidden_units = 10, output_shape=n_classes)
 
 fl_client = FlowerClient(model=model, trainloader=trainloader, testloader=testloader)
 ip_address = f"{cfg['server']['ip']}:{cfg['server']['port']}"
-fl.client.start_numpy_client(server_address=ip_address, client=fl_client)
+orchestrator_ip = f"{cfg['orchestrator']['ip']}:{cfg['orchestrator']['port']}"
+url = f"http://{orchestrator_ip}/allocate/prova1"
+response = requests.get(url)
+if response.status_code == 200:
+    edge_server = response.json().get("edge_server")
+    print(f"Allocated to edge server: {edge_server}")
+else:
+    print(f"Failed to allocate edge server: {response.text}")
+    exit(1)
+# fl.client.start_numpy_client(server_address=ip_address, client=fl_client)
+
