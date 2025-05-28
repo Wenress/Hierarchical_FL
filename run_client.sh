@@ -1,3 +1,5 @@
+clear
+
 sudo docker run --rm \
   --name $1 \
   --network fl-network \

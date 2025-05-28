@@ -79,5 +79,8 @@ except requests.exceptions.RequestException as e:
     print(f"Error allocating edge server: {e}")
     exit(1)
 
-fl.client.start_numpy_client(server_address=edge_server, client=fl_client)
+try:
+    fl.client.start_numpy_client(server_address=edge_server, client=fl_client)
+except Exception as e:
+    print(f"Error in Flower client: {e}")
 

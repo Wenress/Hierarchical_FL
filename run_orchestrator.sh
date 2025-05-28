@@ -1,3 +1,5 @@
+clear
+
 ORCHESTRATOR_DIR="$(pwd)/orchestrator/"
 
 sudo docker run --rm \
