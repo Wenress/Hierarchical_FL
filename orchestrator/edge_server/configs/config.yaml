@@ -1,6 +1,6 @@
 # config.yaml
 fed_avg:
-  min_fit_clients: 2
+  min_fit_clients: 3
   min_available_clients: 2
   min_evaluate_clients: 1
   fraction_fit:   1.0
@@ -8,6 +8,13 @@ fed_avg:
 
 config:
   num_rounds: 3
+
+logging:
+  log_path: "./logs"
+
+model:
+  save_path: "./models/"
+  model_name: "model.pth"
 
 network:
   port: 8080

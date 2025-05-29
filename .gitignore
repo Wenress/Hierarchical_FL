@@ -557,3 +557,25 @@ data/
 **/data/**
 # Data files
 *.gz
+
+# logs
+logs/
+*.log
+**/logs/
+**/logs/** 
+
+# models
+models/
+**/models/
+**/models/**
+# model files
+*.h5
+*.hdf5
+*.ckpt
+*.pth
+*.pt
+# model checkpoints
+*.ckpt.*
+# model weights
+*.weights
+

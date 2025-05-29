@@ -4,4 +4,4 @@ docker run -d --rm \
   --cpus 4 \
   -v "${HOST_ORCHESTRATOR_DIR}/edge_server/":/app \
   flower-image \
-  server.py --config ./configs/config.yaml
+  server.py --config ./configs/config.yaml --name $1
