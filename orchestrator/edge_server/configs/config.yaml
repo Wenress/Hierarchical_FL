@@ -14,7 +14,8 @@ logging:
 
 model:
   save_path: "./models/"
-  model_name: "model.pth"
+  model_name: "model"
+  load_path: "round_3_model.npz"
 
 network:
   port: 8080

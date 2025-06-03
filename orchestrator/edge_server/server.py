@@ -2,6 +2,7 @@ import flwr as fl
 from configs.utils import load_config
 from FedAvgCustom import FedAvgLogger
 from EdgeAggregatorClient import EdgeAggregatorClient
+from load_ckpts import load_ckpt_as_parameters
 import argparse
 import os
 
@@ -30,6 +31,19 @@ log_path = os.path.join(log_path, "server.log")
 with open(log_path, "w") as f:
 	f.write(f"[INIT] Starting Flower server with configuration: {args.config}\n")
 
+load_path = os.path.join(cfg["model"]["save_path"], args.name, cfg["model"]["load_path"])
+with open(log_path, "a") as f:
+	try:
+		f.write(f"[INIT] Attempting to load initial parameters from {load_path}\n")
+		initial_parameters = load_ckpt_as_parameters(load_path,)
+		if initial_parameters is None:
+			f.write("[WARNING] No initial parameters found, using default initialization.\n")
+		else:
+			f.write(f"[INIT] Initial parameters loaded from {load_path}\n")
+	except Exception as e:
+		f.write(f"[ERROR] Failed to load initial parameters: {e}\n")
+		initial_parameters = None
+
 strategy = FedAvgLogger(
 	min_fit_clients       	= cfg["fed_avg"]["min_fit_clients"],
     min_available_clients 	= cfg["fed_avg"]["min_available_clients"],
@@ -39,7 +53,8 @@ strategy = FedAvgLogger(
     num_rounds            	= cfg["config"]["num_rounds"],
     model_path 				= cfg["model"]["save_path"],
     log_path				= cfg["logging"]["log_path"],
-    server_name 	   		= args.name,	
+    server_name 	   		= args.name,
+	initial_parameters 		= initial_parameters,	
 )
 
 config = fl.server.ServerConfig(

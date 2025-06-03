@@ -39,12 +39,11 @@ class FedAvgLogger(FedAvg):
             f.write(f"Round {rnd} aggregated weights shapes: {[w.shape for w in weights_nd]}\n")
             f.write(f"Round {rnd} total samples: {self.client_samples}\n")
 
-        # Save the aggregated weights to a file during the round
-        if rnd >= self.total_rounds:
-            save_path = os.path.join(self.model_path, f"round_{rnd}_model.pth")
-            np.savez(save_path, *weights_nd)
-            with open(log_file, "a") as f:
-                f.write(f"Round {rnd} model saved to {save_path}\n")
+        # Save the aggregated weights to a file during each round
+        save_path = os.path.join(self.model_path, f"round_{rnd}_model")
+        np.savez(save_path, *weights_nd)
+        with open(log_file, "a") as f:
+            f.write(f"Round {rnd} model saved to {save_path}\n")
             
         # Return the aggregated weights
         return aggregated_weights, {}

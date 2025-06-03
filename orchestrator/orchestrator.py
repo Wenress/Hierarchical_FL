@@ -95,7 +95,7 @@ if __name__ == "__main__":
     # when the Flower server is stopped, the orchestrator will also stop
     print("Waiting for the web server to finish...")
     # kill the web server if it is still running
-    web_server.terminate()  # Terminate the web server process
+    #web_server.terminate()  # Terminate the web server process
     print("Web server has been terminated.")
     web_server.join()  # Wait for the web server to finish
     print("Orchestrator has stopped.")
