@@ -19,3 +19,6 @@ model:
 network:
   port: 8080
 
+orchestrator:
+  ip: "orchestrator"
+  port: 8081

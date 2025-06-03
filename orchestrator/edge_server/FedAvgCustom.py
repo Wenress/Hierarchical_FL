@@ -1,8 +1,6 @@
 from flwr.server.strategy import FedAvg
-import flwr
 import os
 from flwr.common import parameters_to_ndarrays
-from flwr.common import ndarrays_to_parameters
 import numpy as np
     
 class FedAvgLogger(FedAvg):
@@ -19,21 +17,27 @@ class FedAvgLogger(FedAvg):
         self.model_path = os.path.join(model_path, server_name)
         os.makedirs(self.model_path, exist_ok=True)
         self.total_rounds = kwargs.get("num_rounds", 1)
+        self.client_samples = 0
+        self.last_parameters = None
+        self.server_name = server_name
         
     
     def aggregate_fit(self, rnd, results, failures):
         """Aggregate model parameters and log the results."""
-        log_file = os.path.join(self.log_path, f"round_{rnd}_weights.log")
+        log_file = os.path.join(self.log_path, f"fit.log")
         if failures:
-            with open(log_file, "w") as f:
+            with open(log_file, "a") as f:
                 f.write(f"[ERROR] Round {rnd} failed for clients: {failures}\n")
 
         aggregated_weights, _ = super().aggregate_fit(rnd, results, failures)
         weights_nd = parameters_to_ndarrays(aggregated_weights)
+        self.client_samples = sum(res.num_examples for _, res in results)
+        self.last_parameters = weights_nd
 
         # Log the aggregated weights
-        with open(log_file, "w") as f:
+        with open(log_file, "a") as f:
             f.write(f"Round {rnd} aggregated weights shapes: {[w.shape for w in weights_nd]}\n")
+            f.write(f"Round {rnd} total samples: {self.client_samples}\n")
 
         # Save the aggregated weights to a file during the round
         if rnd >= self.total_rounds:
