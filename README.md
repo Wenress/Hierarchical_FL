@@ -1,5 +1,7 @@
 # Hierarchical Federated Learning
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A reference implementation of **Hierarchical Federated Learning (HFL)** using [Flower](https://flower.dev) as the orchestration framework and [PyTorch](https://pytorch.org/) for model definition and training. The hierarchy comprises three logical layers:
 
 1. **Clients** – simulate edge devices holding local data.
