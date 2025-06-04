@@ -10,10 +10,10 @@ config:
   num_rounds: 3
 
 logging:
-  log_path: "./logs"
+  log_path: "/app/edge_server/logs"
 
 model:
-  save_path: "./models/"
+  save_path: "/app/edge_server/models/"
   model_name: "model"
   load_path: "round_3_model.npz"
 

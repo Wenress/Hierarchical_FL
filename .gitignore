@@ -560,6 +560,8 @@ data/
 
 # logs
 logs/
+simulation_logs/
+
 *.log
 **/logs/
 **/logs/** 
@@ -574,8 +576,8 @@ models/
 *.ckpt
 *.pth
 *.pt
-# model checkpoints
+*.npz
 *.ckpt.*
-# model weights
 *.weights
 
+run_simulation.sh

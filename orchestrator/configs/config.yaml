@@ -1,7 +1,7 @@
 # config.yaml
 fed_avg:
-  min_fit_clients: 1
-  min_available_clients: 1
+  min_fit_clients: 2
+  min_available_clients: 2
   min_evaluate_clients: 0
   fraction_fit:   1.0
   fraction_evaluate: 0.0
@@ -11,9 +11,9 @@ config:
   num_rounds: 1
 
 orchestrator:
-  max_clients_per_edge_server: 3
-  run_edge_path: "./utils/run_edge_server.sh"
-  kill_edge_path: "./utils/kill_edge_server.sh"
+  max_clients_per_edge_server: 2
+  run_edge_path: "/app/orchestrator/utils/run_edge_server.sh"
+  kill_edge_path: "/app/orchestrator/utils/kill_edge_server.sh"
 
 network:
   ip: 0.0.0.0

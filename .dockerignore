@@ -1,21 +1,37 @@
-**/**/__pycache__
-**/runs/
-**/.vscode/
-# python cache
-**/venv/
-**/.cache/
+########################
+# 1 ─ Cache / compiled
+########################
+**/__pycache__/
+*.py[cod]
+*.so
+*.dll
 
-# data
-**/dataset/
-**/imgs/
-**/experiments/
-**/experiments_best/
-**/experiments_fp16/
-**/vis_test/
-**/vis_output/
+########################
+# 2 ─ Environment and IDE configurations
+########################
+venv/
+.env/
+.idea/
+.vscode/
+*.egg-info/
 
-# shell scripts
-**/*.sh
+########################
+# 3 ─ Data and logs
+########################
+client/data/
+orchestrator/edge_server/data/
+orchestrator/edge_server/logs/
 
-*.md 
-**/LICENSE
+########################
+# 4 ─ Model Checkpoints
+########################
+**/*.pt
+**/*.pth
+**/*.ckpt
+**/*checkpoint*
+**/*.npz
+
+########################
+# 5 ─ VCS
+########################
+.git/
