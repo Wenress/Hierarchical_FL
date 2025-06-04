@@ -1,6 +1,6 @@
 import flwr as fl
 from configs.utils import load_config
-from FedAvgCustom import FedAvgLogger
+from strategy import FedAvgLogger
 from EdgeAggregatorClient import EdgeAggregatorClient
 from load_ckpts import load_ckpt_as_parameters
 import argparse
