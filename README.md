@@ -1,4 +1,4 @@
-# Hierarchical Federated Learning
+# Towards Adaptive and Scalable Hierarchical Federated Learning
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -193,7 +193,7 @@ If you use this repository in your research, please cite it as:
 
 ```bibtex
 @misc{hfl2025,
-  title   = {Hierarchical Federated Learning with Flower and PyTorch},
+  title   = {Towards Adaptive and Scalable Hierarchical Federated Learning},
   author  = {Marco Lettiero and Simone Cioffi and Daniele D'Alessandro},
   year    = {2025},
   howpublished = {\url{https://github.com/Wenress/Hierarchical_FL}}
