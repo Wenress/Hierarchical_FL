@@ -16,7 +16,7 @@ Authors:
 - [Simone Cioffi](https://github.com/SimoneCff)
 - [Daniele D'Alessandro](https://github.com/DanieleDalex)
 
-This project has been realized as part of the Cloud Computing exam at [@uniparthenope](https://github.com/uniparthenope) during the a.y. 2024/2025. Related paper and presentation are available in `\Paper` folder.
+This project has been realized as part of the Cloud Computing exam at [@uniparthenope](https://github.com/uniparthenope) during the a.y. 2024/2025. Related paper and presentation are available in `Paper` folder.
 
 ---
 
